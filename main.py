@@ -5,6 +5,9 @@ from src.services.nft_service import NFTService
 from src.services.chatbot_service import ChatbotService
 from src.controllers.cli_controller import CLIController
 from src.controllers.ui_controller import UIController
+from src.repositories.encuesta_repo import EncuestaRepository
+from src.repositories.usuario_repo import UsuarioRepository
+from src.repositories.nft_repo import NFTRepository
 from src.config import load_config
 from src.ui.gradio_app import lanzar_ui
 import sys
@@ -15,9 +18,9 @@ def main():
     config = load_config()
 
     # Inicializar repositorios
-    encuesta_repo = EncuestaRepository(config)
-    usuario_repo = UsuarioRepository(config)
-    nft_repo = NFTRepository(config)
+    encuesta_repo = EncuestaRepository()
+    usuario_repo = UsuarioRepository()
+    nft_repo = NFTRepository()
 
     # Inicializar servicios
     nft_service = NFTService(nft_repo)
