@@ -12,20 +12,25 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--ui", action="store_true", help="Iniciar interfaz web")
-    args = parser.parse_args()
+    config = load_config()
 
-    poll_service = PollService()
-    user_service = UserService()
-    nft_service = NFTService()
-    chatbot_service = ChatbotService()
+    # Inicializar repositorios
+    encuesta_repo = EncuestaRepository(config)
+    usuario_repo = UsuarioRepository(config)
+    nft_repo = NFTRepository(config)
 
-    if args.ui:
-        lanzar_ui(poll_service, chatbot_service, nft_service)
+    # Inicializar servicios
+    nft_service = NFTService(nft_repo)
+    poll_service = PollService(encuesta_repo, nft_service)
+    user_service = UserService(usuario_repo)
+    chatbot_service = ChatbotService(poll_service)
+
+    if "--ui" in sys.argv:
+        ui_controller = UIController(poll_service, user_service, nft_service, chatbot_service)
+        ui_controller.launch()
     else:
-        cli = CLIController(poll_service, user_service, nft_service, chatbot_service)
-        cli.cmdloop()
+        cli_controller = CLIController(poll_service, user_service, nft_service)
+        cli_controller.run()
 
 if __name__ == "__main__":
     main()
