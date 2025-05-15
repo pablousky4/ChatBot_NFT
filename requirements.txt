@@ -3,3 +3,6 @@ transformers
 pytest
 bcrypt
 uuid
+torch
+tensorflow
+tf-keras

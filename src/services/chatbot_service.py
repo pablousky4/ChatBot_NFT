@@ -5,7 +5,7 @@ from src.services.poll_service import PollService
 
 class ChatbotService:
     def __init__(self, poll_service: PollService):
-        self.pipeline = pipeline("conversational", model="facebook/blenderbot-400M-distill")
+        self.pipeline = pipeline("text-generation", model="facebook/blenderbot-400M-distill")
         self.poll_service = poll_service
 
     def responder(self, username, mensaje):
