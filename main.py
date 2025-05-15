@@ -1,10 +1,15 @@
 import argparse
-from src.services.poll_service import PollService
-from src.services.user_service import UserService
-from src.services.nft_service import NFTService
-from src.services.chatbot_service import ChatbotService
-from src.controllers.cli_controller import CLIController
+from services.poll_service import PollService
+from services.user_service import UserService
+from services.nft_service import NFTService
+from services.chatbot_service import ChatbotService
+from controllers.cli_controller import CLIController
+from controllers.ui_controller import UIController
+from config import load_config
 from src.ui.gradio_app import lanzar_ui
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 def main():
     parser = argparse.ArgumentParser()
